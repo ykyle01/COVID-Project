@@ -1,19 +1,9 @@
 import matplotlib.pyplot as plt
 import seaborn
+import pandas as pd
 
-plt.figure(figsize=(12,2.5))
-
-# random values for x and y
-
-x_values = [10,20,30,40,50]
-y1_values = [100, 50, 75, 40, 80]
-
-plt.plot(x_values, y1_values)
-
-# use the same x-values but different y-values
-y2_values = [10, 75, 25, 80, 40]
-
-plt.plot(x_values, y2_values )
-
-plt.legend(['line 1','line 2'])
+rin_df = pd.read_csv("dataset.csv")
+by_category = rin_df.groupby(['Fuel Category', 'Month']).sum()[['RINs','Volume (Gal.)']].reset_index()
+df = by_category.pivot(index='Month',columns='Fuel Category', values='RINs')
+df.plot()
 plt.show()
