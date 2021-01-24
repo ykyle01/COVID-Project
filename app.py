@@ -1,24 +1,28 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from flask import Flask, render_template
+from flask import Flask, render_template, Response, request
 
 app=Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def plot():
+    # Formatting
     plt.rcParams["figure.figsize"] = (20,10)
-    rin_df = pd.read_csv("dataset.csv")
-    by_category = rin_df.groupby(['Fuel Category', 'Month']).sum()[['RINs','Volume (Gal.)']].reset_index()
-    df = by_category.pivot(index='Month',columns='Fuel Category', values='RINs')
-    
     fig, ax = plt.subplots()
     fig.suptitle("RINs by Fuel Category Over 2020", fontsize = 40)
     ax.ticklabel_format(useOffset=False, style='plain')
 
+    # Import data and aggregate
+    rin_df = pd.read_csv("dataset.csv")
+    by_category = rin_df.groupby(['Fuel Category', 'Month']).sum()[['RINs','Volume (Gal.)']].reset_index()
+    df = by_category.pivot(index='Month',columns='Fuel Category', values='RINs')
+    
     df.plot(ax = ax)
-
     plt.savefig('static/images/plot.png')
-    return render_template('plot.html', url ='/static/images/plot.png')
+    url = "/static/images/plot.png"
+
+    output = request.form.get('options')
+    return render_template('plot.html', output = output, url = url)
 
 if __name__ == "__main__":
     import webbrowser
