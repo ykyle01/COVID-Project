@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <p>{{output}}</p>
-    <p>{{checked}}</p>
-    <form name="myForm" action="" method="post" onsubmit="">
-        <p>Choose Fuel Categories (check none to show all)</p>
-        <input type="checkbox" name="categories" id="category1" value="Biodiesel (EV 1.5)">
-        <label for="category1">Biodiesel (EV 1.5)</label><br>
-        <input type="checkbox" name="categories" id="category2" value="Cellulosic Ethanol (EV 1.0)">
-        <label for="category2">Cellulosic Ethanol (EV 1.0)</label><br>
-        <input type="checkbox" name="categories" id="category3" value="LPG (EV 1.1)">
-        <label for="category3">LPG (EV 1.1)</label><br>
-        <input type="checkbox" name="categories" id="category4" value="Naphtha (EV 1.4)">
-        <label for="category4">Naphtha (EV 1.4)</label><br>
-        <input type="checkbox" name="categories" id="category5" value="Naphtha (EV 1.5)">
-        <label for="category5">Naphtha (EV 1.5)</label><br>
-        <input type="checkbox" name="categories" id="category6" value="Non-cellulosic Ethanol (EV 1.0)">
-        <label for="category6">Non-cellulosic Ethanol (EV 1.0)</label><br>
-        <input type="checkbox" name="categories" id="category7" value="Non-ester Renewable Diesel (EV 1.6)">
-        <label for="category7">Non-ester Renewable Diesel (EV 1.6)</label><br>
-        <input type="checkbox" name="categories" id="category8" value="Non-ester Renewable Diesel (EV 1.7)">
-        <label for="category8">Non-ester Renewable Diesel (EV 1.7)</label><br>
-        <input type="checkbox" name="categories" id="category9" value="Renewable Compressed Natural Gas">
-        <label for="category9">Renewable Compressed Natural Gas</label><br>
-        <input type="checkbox" name="categories" id="category10" value="Renewable Heating Oil (EV 1.6)">
-        <label for="category10">Renewable Heating Oil (EV 1.6)</label><br>
-        <input type="checkbox" name="categories" id="category11" value="Renewable Jet Fuel (EV 1.6)">
-        <label for="category11">Renewable Jet Fuel (EV 1.6)</label><br>
-        <input type="checkbox" name="categories" id="category12" value="Renewable Liquefied Natural Gas">
-        <label for="category12">Renewable Liquefied Natural Gas</label><br>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="author" content="Kyle Yang">
+        <meta name="keywords" content="COVID Biofuel Project">
+        <meta name="description" content="COVID Biofuel Project">
+        
+        <title>Biofuel Plots</title>
+    
+        <!-- External Links to CSS file -->
+        <link rel="stylesheet" media="all" type="text/css" href="../static/style.css" />
+    </head>
+    <body>
+        <p>{{output}}</p>
+        <p>{{checked}}</p>
+        <form name="myForm" action="" method="post" onsubmit="">
+            <p>Choose Fuel Categories (check none to show all)</p>
+            <input type="checkbox" name="categories" id="category1" value="Biodiesel (EV 1.5)">
+            <label for="category1">Biodiesel (EV 1.5)</label><br>
+            <input type="checkbox" name="categories" id="category2" value="Cellulosic Ethanol (EV 1.0)">
+            <label for="category2">Cellulosic Ethanol (EV 1.0)</label><br>
+            <input type="checkbox" name="categories" id="category3" value="LPG (EV 1.1)">
+            <label for="category3">LPG (EV 1.1)</label><br>
+            <input type="checkbox" name="categories" id="category4" value="Naphtha (EV 1.4)">
+            <label for="category4">Naphtha (EV 1.4)</label><br>
+            <input type="checkbox" name="categories" id="category5" value="Naphtha (EV 1.5)">
+            <label for="category5">Naphtha (EV 1.5)</label><br>
+            <input type="checkbox" name="categories" id="category6" value="Non-cellulosic Ethanol (EV 1.0)">
+            <label for="category6">Non-cellulosic Ethanol (EV 1.0)</label><br>
+            <input type="checkbox" name="categories" id="category7" value="Non-ester Renewable Diesel (EV 1.6)">
+            <label for="category7">Non-ester Renewable Diesel (EV 1.6)</label><br>
+            <input type="checkbox" name="categories" id="category8" value="Non-ester Renewable Diesel (EV 1.7)">
+            <label for="category8">Non-ester Renewable Diesel (EV 1.7)</label><br>
+            <input type="checkbox" name="categories" id="category9" value="Renewable Compressed Natural Gas">
+            <label for="category9">Renewable Compressed Natural Gas</label><br>
+            <input type="checkbox" name="categories" id="category10" value="Renewable Heating Oil (EV 1.6)">
+            <label for="category10">Renewable Heating Oil (EV 1.6)</label><br>
+            <input type="checkbox" name="categories" id="category11" value="Renewable Jet Fuel (EV 1.6)">
+            <label for="category11">Renewable Jet Fuel (EV 1.6)</label><br>
+            <input type="checkbox" name="categories" id="category12" value="Renewable Liquefied Natural Gas">
+            <label for="category12">Renewable Liquefied Natural Gas</label><br>
+            <br>
+            <p>Choose Output</p>
+            <input type="radio" name="options" id="option1" value="RINs"> RINs <br>
+            <input type="radio" name="options" id="option2" value="Volume (Gal.)"> Volume (Gal.) <br>
+            <p><input type="submit" value="Submit"></p>
+            </form>
         <br>
-        <p>Choose Output</p>
-        <input type="radio" name="options" id="option1" value="RINs"> RINs <br>
-        <input type="radio" name="options" id="option2" value="Volume (Gal.)"> Volume (Gal.) <br>
-        <p><input type="submit" value="Submit"></p>
-        </form>
-    <br>
-    <img src = "{{url}}" alt = "Chart" width="75%">
+        <img src = "{{url}}" alt = "Chart" width="75%">
+    </body>
 </html>
