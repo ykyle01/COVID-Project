@@ -22,7 +22,9 @@ def plot():
     url = "/static/images/plot.png"
 
     output = request.form.get('options')
-    return render_template('plot.html', output = output, url = url)
+    checked = request.form.getlist('categories')
+
+    return render_template('plot.html', checked = checked, output = output, url = url)
 
 if __name__ == "__main__":
     import webbrowser
