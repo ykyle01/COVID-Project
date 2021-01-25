@@ -7,17 +7,19 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/', methods=['GET','POST'])
 def plot():
-    # Formatting and setting parameters
-    plt.rcParams["figure.figsize"] = (20,10)
-    fig, ax = plt.subplots()
-    fig.suptitle("RINs by Fuel Category Over 2020", fontsize = 40)
-    ax.ticklabel_format(useOffset=False, style='plain')
-    url = "/static/images/plot.png"
-
     # Read form input
     output = request.form.get('options')
     checked = request.form.getlist('categories')
+    if output is None:
+        output = "RINs"
 
+    # Formatting and setting parameters
+    plt.rcParams["figure.figsize"] = (20,10)
+    fig, ax = plt.subplots()
+    fig.suptitle(output + " by Fuel Category Over 2020", fontsize = 40)
+    ax.ticklabel_format(useOffset=False, style='plain')
+    url = "/static/images/plot.png"
+    
     # Import data and aggregate
     raw_df = pd.read_csv("dataset.csv")
     by_category = raw_df.groupby(['Fuel Category', 'Month']).sum()[['RINs','Volume (Gal.)']].reset_index()
@@ -26,16 +28,14 @@ def plot():
     filter_list = []
     for row in by_category['Fuel Category']:
         filter_list.append(row in checked)
-    
     filtered = by_category[filter_list]
     if len(filtered.index) == 0:
         filtered = by_category
 
     # Plot and save
-    pivoted = filtered.pivot(index='Month',columns='Fuel Category', values='RINs')
+    pivoted = filtered.pivot(index='Month', columns='Fuel Category', values=output)
     pivoted.plot(ax = ax)
     plt.savefig('static/images/plot.png')
-
     return render_template('plot.html', checked = checked, output = output, url = url)
 
 # No caching at all for API endpoints.
