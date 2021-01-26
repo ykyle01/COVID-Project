@@ -11,8 +11,6 @@ def plot():
     # Read form input
     output = request.form.get('options')
     checked = request.form.getlist('categories')
-    if output is None:
-        output = "RINs"
 
     # Formatting and setting parameters
     plt.rcParams["figure.figsize"] = (20,10)
