@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
 from flask import Flask, render_template, Response, request
 
 app=Flask(__name__)
@@ -19,8 +18,9 @@ def plot():
     fig, ax = plt.subplots()
     fig.suptitle(output + " by Fuel Category Over 2020", fontsize = 40)
     ax.ticklabel_format(useOffset=False, style='plain')
-    url = "/static/images/plot.png"
-    
+    line_url = 'static/images/line_plot.png'
+    pie_url = 'static/images/pie_plot.png'
+
     # Import data and aggregate
     raw_df = pd.read_csv("dataset.csv")
     by_category = raw_df.groupby(['Fuel Category', 'Month']).sum()[['RINs','Volume (Gal.)']].reset_index()
@@ -33,13 +33,20 @@ def plot():
     if len(filtered.index) == 0:
         filtered = by_category
 
-    # Plot and save
+    # Plot and save line graph
     pivoted = filtered.pivot(index='Month', columns='Fuel Category', values=output)
     pivoted.fillna(pivoted.mean()).plot(ax = ax)
+    plt.savefig(line_url)
 
-    plt.savefig('static/images/plot.png')
+    # Plot and save pie chart
+    consolidated = filtered.groupby(['Fuel Category']).sum()[['RINs','Volume (Gal.)']].reset_index()
+    consolidated.set_index('Fuel Category', inplace = True)
+    ax.clear()
+    consolidated.plot(ax = ax, y = output, kind = 'pie', labeldistance = None)
+    plt.savefig(pie_url)
+
     # return render_template('plot.html', checked = checked, output = output, url = url)
-    return render_template('plot.html', url = url)
+    return render_template('plot.html', line_url = line_url, pie_url = pie_url)
 
 # No caching at all for API endpoints.
 @app.after_request
