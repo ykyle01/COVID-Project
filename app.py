@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from flask import Flask, render_template, Response, request
 
 app=Flask(__name__)
@@ -34,17 +35,16 @@ def plot():
 
     # Plot and save
     pivoted = filtered.pivot(index='Month', columns='Fuel Category', values=output)
-    pivoted.plot(ax = ax)
+    print(pivoted.head())
+    pivoted.fillna(pivoted.mean()).plot(ax = ax)
+
     plt.savefig('static/images/plot.png')
-    return render_template('plot.html', checked = checked, output = output, url = url)
+    # return render_template('plot.html', checked = checked, output = output, url = url)
+    return render_template('plot.html', url = url)
 
 # No caching at all for API endpoints.
 @app.after_request
 def add_header(response):
-    """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to cache the rendered page for 10 minutes.
-    """
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'no-cache, no-store, public, max-age=0'
     response.headers['Pragma'] = 'no-cache'
@@ -52,6 +52,5 @@ def add_header(response):
 
 if __name__ == "__main__":
     import webbrowser
-
     webbrowser.open("http://127.0.0.1:5000/")
     app.run(debug=False)

@@ -8,15 +8,16 @@
         
         <title>Biofuel Plots</title>
     
-        <!-- External Links to CSS file -->
-        <link rel="stylesheet" media="all" type="text/css" href="../static/style.css" />
+        <!-- External Links to CSS files -->
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/css/style.css">
     </head>
     <body>
-        <p>{{output}}</p>
-        <p>{{checked}}</p>
+        <!-- <p>{{output}}</p>
+        <p>{{checked}}</p> -->
         <div id="container">
             <form name="myForm" action="" method="post" onsubmit="">
-                <p>Choose Fuel Categories (check none to show all)</p>
+                <b>Choose Fuel Categories (check none to show all)</b><br>
                 <input type="checkbox" name="categories" id="category1" value="Biodiesel (EV 1.5)">
                 <label for="category1">Biodiesel (EV 1.5)</label><br>
                 <input type="checkbox" name="categories" id="category2" value="Cellulosic Ethanol (EV 1.0)">
@@ -40,15 +41,13 @@
                 <input type="checkbox" name="categories" id="category11" value="Renewable Jet Fuel (EV 1.6)">
                 <label for="category11">Renewable Jet Fuel (EV 1.6)</label><br>
                 <input type="checkbox" name="categories" id="category12" value="Renewable Liquefied Natural Gas">
-                <label for="category12">Renewable Liquefied Natural Gas</label><br>
-                <br>
-                <p>Choose Output</p>
+                <label for="category12">Renewable Liquefied Natural Gas</label><br><br>
+                <b>Choose Output</b><br>
                 <input type="radio" name="options" id="option1" value="RINs"> RINs <br>
-                <input type="radio" name="options" id="option2" value="Volume (Gal.)"> Volume (Gal.) <br>
-                <p><input type="submit" value="Submit"></p>
-                </form>
-            <br>
+                <input type="radio" name="options" id="option2" value="Volume (Gal.)"> Volume (Gal.) <br><br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
-        <img src = "{{url}}" alt = "Biofuel line chart by category over 2020" width="75%">
+        <img src = "{{url}}" alt = "Biofuel line chart by category over 2020">
     </body>
 </html>
