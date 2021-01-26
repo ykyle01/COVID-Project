@@ -35,7 +35,6 @@ def plot():
 
     # Plot and save
     pivoted = filtered.pivot(index='Month', columns='Fuel Category', values=output)
-    print(pivoted.head())
     pivoted.fillna(pivoted.mean()).plot(ax = ax)
 
     plt.savefig('static/images/plot.png')
