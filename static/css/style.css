@@ -17,5 +17,6 @@ body {
 img {
     margin: 10px;
     width: 60%;
+    min-width: 400px;
     float: left;
 }
