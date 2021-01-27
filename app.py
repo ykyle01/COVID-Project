@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from flask import Flask, render_template, Response, request
+import numpy as np
+import calendar
 
 app=Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -24,7 +26,8 @@ def plot():
     # Import data and aggregate
     raw_df = pd.read_csv("dataset.csv")
     by_category = raw_df.groupby(['Fuel Category', 'Month']).sum()[['RINs','Volume (Gal.)']].reset_index()
-    
+    print(by_category.head())
+
     # Filter based on checked fuel categories
     filter_list = []
     for row in by_category['Fuel Category']:
@@ -34,7 +37,8 @@ def plot():
         filtered = by_category
 
     # Plot and save line graph
-    pivoted = filtered.pivot(index='Month', columns='Fuel Category', values=output)
+    pivoted = filtered.pivot(index = 'Month', columns='Fuel Category', values=output)
+    plt.xticks(np.arange(12), calendar.month_abbr[1:13], rotation=20)
     pivoted.fillna(pivoted.mean()).plot(ax = ax)
     plt.savefig(line_url)
 
