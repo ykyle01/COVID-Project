@@ -26,7 +26,6 @@ def plot():
     # Import data and aggregate
     raw_df = pd.read_csv("dataset.csv")
     by_category = raw_df.groupby(['Fuel Category', 'Month']).sum()[['RINs','Volume (Gal.)']].reset_index()
-    print(by_category.head())
 
     # Filter based on checked fuel categories
     filter_list = []
@@ -47,6 +46,7 @@ def plot():
     consolidated.set_index('Fuel Category', inplace = True)
     ax.clear()
     consolidated.plot(ax = ax, y = output, kind = 'pie', labeldistance = None)
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.savefig(pie_url)
 
     # return render_template('plot.html', checked = checked, output = output, url = url)
